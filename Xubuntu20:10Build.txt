@@ -1,0 +1,28 @@
+# This is for Xubuntu 20.10
+
+$ apt-get update
+$ apt-get -y install nano x11-apps curl wget file gpg
+
+# some options to choose:2, 37, 31, 1
+$ apt-get -y install git build-essential qt5-default qtcreator bison flex 
+$ apt-get -y install libqt5svg5-dev libssl-dev libqt5serialport5-dev qtmultimedia5-dev qtwebengine5-dev libqt5charts5-dev qtconnectivity5-dev libqt5webkit5-dev libgsl-dev
+
+$ cd /home
+$ git clone git://github.com/GoldenCheetah/GoldenCheetah.git
+
+# Do some manual changes
+-- https://github.com/GoldenCheetah/GoldenCheetah/wiki/Dev-Howto---Ubuntu-17.10-and-QtCreator-%28debug-mode%29-setup
+
+-- https://github.com/GoldenCheetah/GoldenCheetah/pull/3628/commits/1e089e3abd270f86f6a00b66e608cd837c8e6430
+
+-- add "-lgsl" to LIBS= variable in GoldenCheetah/src/Makefile
+-- Then it should look like 
+    LIBS          = $(SUBLIBS) -L/home/GoldenCheetah/src/../qwt/lib -lgsl -lqwt -lz -lm (...)
+
+
+$ cd /home/GoldenCheetah
+$ make clean
+$ qmake
+$ make -j4
+
+GoldenCheetah should be under /src
